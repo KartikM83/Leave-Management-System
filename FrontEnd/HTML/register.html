@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Tailwind Test</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="../javascript/register.js" defer></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+
+<body class="bg-[#2d2d2d] h-screen flex justify-center items-center text-white">
+
+    <div class="w-full h-full flex">
+        <div class="w-1/2 h-full bg-[#454545] rounded-r-full "></div>
+
+        <div class="w-1/2 h-full flex flex-col justify-center px-28 gap-3 ">
+
+            <div class="text-2xl font-semibold">Create Account</div>
+            <form id="registerForm">
+                <label>Full Name</label>
+                <div class="relative w-full mb-4">
+                    <i
+                        class="fa fa-user absolute left-3 top-1/2 transform -translate-y-1/2 text-white pointer-events-none "></i>
+                    <input type="text" placeholder="Your Name" class="w-full p-4 pl-10 border placeholder-white border-black rounded-xl bg-transparent text-white
+                               hover:border-white
+                               focus:border-[#ffbd20]
+                               focus:border-2 
+                               focus:outline-none   
+                               transition-colors duration-200" required />
+                </div>
+
+                <label>Your Email</label>
+                <div class="relative w-full mb-4">
+                    <i
+                        class="fa fa-envelope absolute left-3 top-1/2 transform -translate-y-1/2 text-white pointer-events-none"></i>
+                    <input type="email" placeholder="Email" class="w-full p-4 pl-10 border placeholder-white border-black rounded-xl bg-transparent text-white
+                               hover:border-white
+                               focus:border-[#ffbd20]
+                               focus:border-2 
+                               focus:outline-none
+                               transition-colors duration-200" required />
+                </div>
+
+                <!-- Password Field -->
+                <label>Password</label>
+                <div class="relative w-full mb-4">
+                    <i
+                        class="fa fa-lock absolute left-3 top-1/2 transform -translate-y-1/2 text-white pointer-events-none"></i>
+                    <input id="password" type="password" placeholder="Password" class="w-full p-4 pl-10 pr-10 border placeholder-white border-black rounded-xl bg-transparent text-white
+           hover:border-white focus:border-[#ffbd20] focus:border-2  focus:outline-none transition-colors duration-200" required />
+                    <button type="button" onclick="togglePassword('password', this)"
+                        class="absolute right-3 top-1/2 transform -translate-y-1/2 text-white focus:outline-none">
+                        <i class="fa fa-eye"></i>
+                    </button>
+                </div>
+
+                <!-- Confirm Password Field -->
+                <label>Confirm Password</label>
+                <div class="relative w-full mb-4">
+                    <i
+                        class="fa fa-lock absolute left-3 top-1/2 transform -translate-y-1/2 text-white pointer-events-none"></i>
+                    <input id="confirmPassword" type="password" placeholder="Confirm Password" class="w-full p-4 pl-10 pr-10 border placeholder-white border-black rounded-xl bg-transparent text-white
+           hover:border-white focus:border-[#ffbd20] focus:border-2 focus:outline-none transition-colors duration-200" required />
+                    <button type="button" onclick="togglePassword('confirmPassword', this)"
+                        class="absolute right-3 top-1/2 transform -translate-y-1/2 text-white focus:outline-none">
+                        <i class="fa fa-eye"></i>
+                    </button>
+                </div>
+
+                <label class="block text-white text-lg mb-2">Are You?</label>
+                <div class="flex gap-8 mb-5">
+                    <div id="option1"
+                        class="w-1/3 flex items-center justify-center py-3 border border-[#ffbd20] rounded-md gap-2 cursor-pointer"
+                        onclick="selectRadio('EMPLOYEE', 'option1')">
+                        <input
+                            class="appearance-none w-4 h-4 border border-white rounded-full checked:bg-[#ffbd20] checked:border-[#ffbd20] focus:outline-none transition duration-200"
+                            type="radio" id="EMPLOYEE" name="EMPLOYEE" value="EMPLOYEE" />
+                        <label for="EMPLOYEE" class="text-white">EMPLOYEE</label>
+                    </div>
+
+                    <div id="option2"
+                        class="w-1/3 flex items-center justify-center py-3 border border-[#ffbd20] rounded-md gap-2 cursor-pointer"
+                        onclick="selectRadio('MANAGER', 'option2')">
+                        <input
+                            class="appearance-none w-4 h-4 border border-white rounded-full checked:bg-[#ffbd20] checked:border-[#ffbd20] focus:outline-none transition duration-200"
+                            type="radio" id="MANAGER" name="MANAGER" value="MANAGER" />
+                        <label for="MANAGER" class="text-white">Manager</label>
+                    </div>
+                </div>
+
+                <button type="submit"
+                    class="bg-[#ffbd20] text-black font-semibold w-full py-2 rounded-xl  transition-colors duration-200">Sign up</button>
+            </form>
+
+          <div class="flex items-center justify-center text-[18px]">
+  Have an account? 
+  <a href="login.html" class="text-[#ffbd20] ml-1 hover:underline">Login</a>
+</div>
+
+
+        </div>
+    </div>
+
+</body>
+
+</html>

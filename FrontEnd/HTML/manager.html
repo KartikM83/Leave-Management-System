@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="../JavaScript/profile.js" defer></script>
+    <script src="../JavaScript/section.js" defer></script>
+    <script src="../JavaScript/dashboard.js" defer></script>
+    <!-- <script src="../JavaScript/managerDashboard.js"></script> -->
+    <script src="../JavaScript/passchnage.js" defer></script>
+    <script src="../JavaScript/manager.js" defer></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+
+
+</head>
+
+<body class="text-white bg-[#2d2d2d]">
+
+    <div class="w-full h-screen ">
+
+        <!-- Navbar -->
+        <div class="w-full h-[10%] flex justify-between items-center px-5 border-b-2 border-[#3d3d3d]">
+            <div class="text-5xl font-bold text-[#ffbd20]">LMS</div>
+
+            <div class="flex gap-5 text-md">
+                <div class="hover:text-[#ffbd20] cursor-pointer" onclick="mshowSection('dashboardSection')">Dashboard
+                </div>
+                <div class="hover:text-[#ffbd20] cursor-pointer" onclick="mshowSection('profileSection')">My Profile
+                </div>
+                <div class="hover:text-[#ffbd20] cursor-pointer" onclick="mshowSection('changePasswordSection')">Change Password</div>
+
+                <div class="hover:text-[#ffbd20] cursor-pointer" onclick="mshowSection('LeavesSection')">New Leaves </div>
+
+                <div class="hover:text-[#ffbd20] cursor-pointer" onclick="logout()">Logout</div>
+
+
+            </div>
+
+            <!-- <div class="flex gap-2 items-center justify-center">
+                <div class="font-semibold">Kartik</div>
+                <div class="w-12 h-12 bg-blue-600 rounded-full"></div>
+            </div> -->
+        </div>
+
+
+        <!--  Dashboard -->
+        <div id="dashboardSection" class="p-10">
+            <h2 class="text-3xl font-bold mb-6 text-[#ffbd20]">Hi Manager 👋</h2>
+
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+                <div class="bg-[#3d3d3d] p-4 rounded-lg text-center">
+                    <h3 class="text-xl font-semibold">Total Requests</h3>
+                    <p id="managerTotalLeaves" class="text-3xl mt-2 font-bold text-yellow-400">0</p>
+                </div>
+                <div class="bg-[#3d3d3d] p-4 rounded-lg text-center">
+                    <h3 class="text-xl font-semibold">Pending Requests</h3>
+                    <p id="managerPendingLeaves" class="text-3xl mt-2 font-bold text-orange-400">0</p>
+                </div>
+
+                <div class="bg-[#3d3d3d] p-4 rounded-lg text-center">
+                    <h3 class="text-xl font-semibold">Approved</h3>
+                    <p id="approvedCount" class="text-3xl mt-2 font-bold text-green-400">0</p>
+                </div>
+                <div class="bg-[#3d3d3d] p-4 rounded-lg text-center">
+                    <h3 class="text-xl font-semibold">Rejected</h3>
+                    <p id="rejectedCount" class="text-3xl mt-2 font-bold text-red-400">0</p>
+                </div>
+            </div>
+            
+
+        </div>
+
+
+
+        <!-- Profile Section -->
+        
+        <div id="profileSection" class="p-10 hidden">
+            <h2 class="text-3xl font-bold mb-6 text-[#ffbd20]">My Profile</h2>
+
+           
+            <div id="profileView" class="space-y-4">
+                <div class="grid grid-cols-2 gap-4">
+                    <div><strong>Employee Code:</strong> <span id="viewEmpCode">M001</span></div>
+
+                    <div><strong>Gender:</strong> <span id="viewGender"></span></div>
+
+                    <div><strong>First Name:</strong> <span id="viewFirstName">Admin</span></div>
+
+                    <div><strong>Last Name:</strong> <span id="viewLastName"></span></div>
+
+                    <div><strong>Date of Birth:</strong> <span id="viewDob"></span></div>
+
+                    <div><strong>Email:</strong> <span id="viewEmail">admin@example.com</span></div>
+
+                    <div><strong>Department:</strong> <span id="viewDept"></span></div>
+
+                    <div><strong>Mobile:</strong> <span id="viewMobile"> </span></div>
+
+                    <div><strong>City:</strong> <span id="viewCity"></span></div>
+
+                    <div><strong>Country:</strong> <span id="viewCountry"></span></div>
+
+                    <div class="col-span-2"><strong>Address:</strong> <span id="viewAddress"></span></div>
+
+                </div>
+
+                <button id="editBtn"
+                    class="mt-4 bg-yellow-500 text-black px-6 py-2 rounded hover:bg-yellow-400 font-semibold">Edit</button>
+            </div>
+
+
+
+            <!-- Editable Form -->
+            <div id="profileEditForm" class="hidden mt-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 bg-[#3d3d3d] p-6 rounded-xl">
+
+                    <div><label class="block mb-1 text-sm">Employee Code</label><input type="text" id="empCode"
+                            value="EMP001" disabled
+                            class="w-full p-2 rounded bg-[#2d2d2d] border border-[#555] text-white" /></div>
+
+
+                    <div><label class="block mb-1 text-sm">Gender</label><input type="text" id="gender" value=""
+                            class="w-full p-2 rounded bg-[#2d2d2d] border border-[#555] text-white" placeholder="Eg: Male" /></div>
+
+
+                    <div><label class="block mb-1 text-sm">First Name</label><input type="text" id="firstName"
+                            value="Kartik" class="w-full p-2 rounded bg-[#2d2d2d] border border-[#555] text-white" />
+                    </div>
+
+
+                    <div><label class="block mb-1 text-sm">Last Name</label><input type="text" id="lastName" value=""
+                            class="w-full p-2 rounded bg-[#2d2d2d] border border-[#555] text-white" placeholder="Eg: Mankar"/></div>
+
+
+                    <div><label class="block mb-1 text-sm">DOB</label><input type="text" id="dob" value=""
+                            class="w-full p-2 rounded bg-[#2d2d2d] border border-[#555] text-white" placeholder="Eg: YYYY/MM/DD" /></div>
+
+
+                    <div><label class="block mb-1 text-sm">Email</label><input type="email" id="email"
+                            value="kartik@example.com" disabled
+                            class="w-full p-2 rounded bg-[#2d2d2d] border border-[#555] text-white" /></div>
+
+
+                    <div><label class="block mb-1 text-sm">Department</label><input type="text" id="workingDept"
+                            value="" class="w-full p-2 rounded bg-[#2d2d2d] border border-[#555] text-white" placeholder="Eg: HR/IT Department"  /></div>
+
+
+                    <div><label class="block mb-1 text-sm">Mobile</label><input type="text" id="mobile" value=""
+                            class="w-full p-2 rounded bg-[#2d2d2d] border border-[#555] text-white" placeholder="+91 8930465997" /></div>
+
+
+                    <div><label class="block mb-1 text-sm">City</label><input type="text" id="city" value=""
+                            class="w-full p-2 rounded bg-[#2d2d2d] border border-[#555] text-white" placeholder="Eg: Nagpur" /></div>
+
+
+                    <div><label class="block mb-1 text-sm">Country</label><input type="text" id="country" value=""
+                            class="w-full p-2 rounded bg-[#2d2d2d] border border-[#555] text-white" placeholder="Eg: India"/></div>
+
+
+                    <div class="md:col-span-2"><label class="block mb-1 text-sm">Address</label><input type="text"
+                            id="address" value=""
+                            class="w-full p-2 rounded bg-[#2d2d2d] border border-[#555] text-white" placeholder="Eg: Near sive mandir,nagpur"/></div>
+
+                    <div class="mt-6 flex gap-4 col-span-2">
+                        <button id="saveBtn"
+                            class="bg-green-500 text-white px-6 py-2 rounded hover:bg-green-600 font-semibold">Save</button>
+                        <button id="cancelBtn"
+                            class="bg-gray-500 text-white px-6 py-2 rounded hover:bg-gray-600 font-semibold">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <div id="changePasswordSection" class="p-10 hidden">
+            <h2 class="text-3xl font-bold mb-6 text-[#ffbd20]">Change Password</h2>
+
+            <div class="w-full bg-[#3d3d3d] p-6 rounded-xl space-y-6">
+
+               
+
+                <div class="flex gap-2">
+
+                    <div class="w-full">
+                        <label class="block mb-1 text-sm font-semibold">Old Password</label>
+                        <div class="relative w-full">
+                            <i
+                                class="fa fa-lock absolute left-3 top-1/2 transform -translate-y-1/2 text-white pointer-events-none"></i>
+                            <input id="oldPassword" type="password" placeholder="Old Password"
+                                class="w-full p-4 pl-10 pr-10 border placeholder-white border-[#555] rounded-xl bg-[#2d2d2d] text-white
+                    hover:border-white focus:border-[#ffbd20] focus:border-2 focus:outline-none transition-colors duration-200" />
+                            <button type="button" onclick="togglePassword('oldPassword', this)"
+                                class="absolute right-3 top-1/2 transform -translate-y-1/2 text-white focus:outline-none">
+                                <i class="fa fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                   
+                    <div class="w-full">
+                        <label class="block mb-1 text-sm font-semibold">New Password</label>
+                        <div class="relative w-full">
+                            <i
+                                class="fa fa-lock absolute left-3 top-1/2 transform -translate-y-1/2 text-white pointer-events-none"></i>
+                            <input id="newPassword" type="password" placeholder="New Password"
+                                class="w-full p-4 pl-10 pr-10 border placeholder-white border-[#555] rounded-xl bg-[#2d2d2d] text-white
+                    hover:border-white focus:border-[#ffbd20] focus:border-2 focus:outline-none transition-colors duration-200" />
+                            <button type="button" onclick="togglePassword('newPassword', this)"
+                                class="absolute right-3 top-1/2 transform -translate-y-1/2 text-white focus:outline-none">
+                                <i class="fa fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+
+
+                </div>
+
+
+            
+                <div class="w-full flex justify-center items-center">
+                    <div class="w-1/2">
+                        <label class="block mb-1 text-sm font-semibold">Confirm New Password</label>
+                        <div class="relative w-full">
+                            <i
+                                class="fa fa-lock absolute left-3 top-1/2 transform -translate-y-1/2 text-white pointer-events-none"></i>
+                            <input id="confirmPassword" type="password" placeholder="Confirm Password"
+                                class="w-full p-4 pl-10 pr-10 border placeholder-white border-[#555] rounded-xl bg-[#2d2d2d] text-white
+                    hover:border-white focus:border-[#ffbd20] focus:border-2 focus:outline-none transition-colors duration-200" />
+                            <button type="button" onclick="togglePassword('confirmPassword', this)"
+                                class="absolute right-3 top-1/2 transform -translate-y-1/2 text-white focus:outline-none">
+                                <i class="fa fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+
+                
+                <button onclick="changePassword()"
+                    class="bg-yellow-500 hover:bg-yellow-400 text-black font-semibold px-6 py-2 rounded mt-4">
+                    Change Password
+                </button>
+            </div>
+        </div>
+
+
+
+
+
+        <!-- Leaves Section -->
+        <div id="LeavesSection" class="p-10 hidden">
+            <h2 class="text-3xl font-bold mb-6 text-[#ffbd20]">New Leave Requests</h2>
+
+            <div class="overflow-x-auto bg-[#3d3d3d] rounded-lg">
+                <table class="min-w-full">
+                    <thead class="bg-[#ffbd20] text-black">
+                        <tr>
+                            <th class="px-4 py-2 text-left">S.No.</th>
+                            <th class="px-4 py-2 text-left">Employee Name</th>
+                            <th class="px-4 py-2 text-left">Type</th>
+                            <th class="px-4 py-2 text-left">Start Date</th>
+                            <th class="px-4 py-2 text-left">End Date</th>
+                            <th class="px-4 py-2 text-left">Reason</th>
+                            <th class="px-4 py-2 text-left">Your Comment</th>
+                            <th class="px-4 py-2 text-left">Current Status</th>
+                            <th class="px-4 py-2 text-left">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="newLeavesTableBody">
+                       
+                        
+
+                     
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+
+        <!--  Review  -->
+        <div id="leaveModal" class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50 hidden">
+            <div class="bg-[#3d3d3d] p-6 rounded-lg w-[500px] relative">
+                <button onclick="closeLeaveModal()" class="absolute top-2 right-3 text-white text-xl">
+                    &times;
+                </button>
+
+                <h2 class="text-2xl font-bold mb-4 text-[#ffbd20]">Leave Details</h2>
+
+                <div class="space-y-2 text-sm">
+                    <p><strong>Employee Name:</strong> <span id="modalEmpName"></span></p>
+                    <p><strong>Emp Code:</strong> <span id="modalEmpCode"></span></p>
+                    <p><strong>Department:</strong> <span id="modalDept"></span></p>
+                    <p><strong>Leave Type:</strong> <span id="modalType"></span></p>
+                    <p><strong>Start Date:</strong> <span id="modalStart"></span></p>
+                    <p><strong>End Date:</strong> <span id="modalEnd"></span></p>
+                    <p><strong>Reason:</strong> <span id="modalReason"></span></p>
+                </div>
+
+                <div class="mt-4">
+                    <label class="block text-sm font-semibold mb-1">Manager Comment</label>
+                    <textarea id="managerComment" rows="2"
+                        class="w-full p-2 bg-[#2d2d2d] border border-[#555] rounded text-white"></textarea>
+                </div>
+
+                <div class="flex justify-end gap-4 mt-6">
+                    <button onclick="handleLeaveDecision('APPROVED')"
+                        class="bg-green-500 hover:bg-green-600 px-4 py-2 rounded text-white">Approve</button>
+                    <button onclick="handleLeaveDecision('REJECTED')"
+                        class="bg-red-500 hover:bg-red-600 px-4 py-2 rounded text-white">Reject</button>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+
+    </div>
+
+
+
+</body>
+
+</html>

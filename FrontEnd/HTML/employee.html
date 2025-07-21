@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="../JavaScript/profile.js" defer></script>
+  <script src="../JavaScript/section.js" defer></script>
+  <script src="../JavaScript/dashboard.js" defer></script>
+  <!-- <script src="../JavaScript/employeeDashboard.js"></script> -->
+  <script src="../JavaScript/passchnage.js" defer></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <!-- FullCalendar CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.css" rel="stylesheet" />
+
+  <!-- FullCalendar JS -->
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
+
+
+
+</head>
+
+<body class="text-white bg-[#2d2d2d]">
+
+  <div class="w-full h-screen ">
+
+    <!-- Navbar -->
+    <div class="w-full h-[10%] flex justify-between items-center px-5 border-b-2 border-[#3d3d3d]">
+      <div class="text-5xl font-bold text-[#ffbd20]">LMS</div>
+
+      <div class="flex gap-5 text-md">
+
+        <div class="hover:text-[#ffbd20] cursor-pointer" onclick="showSection('dashboardSection')">Dashboard</div>
+
+        <div class="hover:text-[#ffbd20] cursor-pointer" onclick="showSection('profileSection')">My Profile</div>
+
+        <div class="hover:text-[#ffbd20] cursor-pointer" onclick="showSection('changePasswordSection')">Change Password
+        </div>
+
+        <div class="hover:text-[#ffbd20] cursor-pointer" onclick="showSection('applyLeaveSection')">Apply Leave</div>
+
+        <div class="hover:text-[#ffbd20] cursor-pointer" onclick="showSection('calendarSection')">Leave Calendar</div>
+
+        <div class="hover:text-[#ffbd20] cursor-pointer" onclick="logout()">Logout</div>
+
+
+      </div>
+
+      <!-- <div class="flex gap-2 items-center justify-center">
+        <div class="font-semibold">Kartik</div>
+        <div class="w-12 h-12 bg-blue-600 rounded-full"></div>
+      </div> -->
+    </div>
+
+
+    <!--Dashboard -->
+    <div id="dashboardSection" class="p-10">
+
+      <h2 class="text-3xl font-bold mb-6 text-[#ffbd20]">Hi Kartik 👋</h2>
+
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 mb-8">
+      
+        <div class="bg-[#3d3d3d] p-4 rounded-lg text-center">
+          <h3 class="text-xl font-semibold">Total Leaves</h3>
+          <p id="totalLeaves" class="text-3xl mt-2 font-bold text-yellow-400">0</p>
+        </div>
+
+     
+        <div class="bg-[#3d3d3d] p-4 rounded-lg text-center">
+          <h3 class="text-xl font-semibold">Remaining</h3>
+          <p id="remainingLeaves" class="text-3xl mt-2 font-bold text-blue-400">0</p>
+        </div>
+
+        
+        <div class="bg-[#3d3d3d] p-4 rounded-lg text-center">
+          <h3 class="text-xl font-semibold">Sick Leaves</h3>
+          <p id="sickLeaves" class="text-3xl mt-2 font-bold text-yellow-400">0/0</p>
+        </div>
+
+       
+        <div class="bg-[#3d3d3d] p-4 rounded-lg text-center">
+          <h3 class="text-xl font-semibold">Vacation Leaves</h3>
+          <p id="vacationLeaves" class="text-3xl mt-2 font-bold text-yellow-400">0/0</p>
+        </div>
+
+       
+        <div class="bg-[#3d3d3d] p-4 rounded-lg text-center">
+          <h3 class="text-xl font-semibold">Other Leaves</h3>
+          <p id="otherLeaves" class="text-3xl mt-2 font-bold text-yellow-400">0/0</p>
+        </div>
+
+        
+        <div class="bg-[#3d3d3d] p-4 rounded-lg text-center">
+          <h3 class="text-xl font-semibold">Approved</h3>
+          <p id="approvedLeaves" class="text-3xl mt-2 font-bold text-green-400">0</p>
+        </div>
+
+        <div class="bg-[#3d3d3d] p-4 rounded-lg text-center">
+          <h3 class="text-xl font-semibold">Rejected</h3>
+          <p id="rejectedLeaves" class="text-3xl mt-2 font-bold text-red-400">0</p>
+        </div>
+
+    
+        <div class="bg-[#3d3d3d] p-4 rounded-lg text-center">
+          <h3 class="text-xl font-semibold">Pending</h3>
+          <p id="pendingLeaves" class="text-3xl mt-2 font-bold text-orange-400">0</p>
+        </div>
+      </div>
+
+
+
+
+      
+
+      <!-- Recent Leaves Table -->
+      <h3 class="text-2xl font-bold mb-4">Recent Leaves</h3>
+      <div class="overflow-x-auto bg-[#3d3d3d] rounded-lg">
+        <table class="min-w-full">
+          <thead class="bg-[#ffbd20] text-black">
+            <tr>
+              <th class="px-4 py-2 text-left">S.No.</th>
+              <th class="px-4 py-2 text-left">Leave Type</th>
+              <th class="px-4 py-2 text-left">Start Date</th>
+              <th class="px-4 py-2 text-left">End Date</th>
+              <th class="px-4 py-2 text-left">Status</th>
+              <th class="px-4 py-2 text-left">Reason</th>
+              <th class="px-4 py-2 text-left">Manager Comment</th>
+            </tr>
+          </thead>
+
+          <tbody id="recentLeavesTableBody">
+            
+          </tbody>
+
+        </table>
+      </div>
+    </div>
+
+
+
+    <!-- Profile Section -->
+   
+    <div id="profileSection" class="p-10 hidden">
+      <h2 class="text-3xl font-bold mb-6 text-[#ffbd20]">My Profile</h2>
+
+      
+      <div id="profileView" class="space-y-4">
+
+        <div class="grid grid-cols-2 gap-4">
+          <div><strong>Employee Code:</strong> <span id="viewEmpCode">EMP001</span></div>
+
+          <div><strong>Gender:</strong> <span id="viewGender"></span></div>
+
+          <div><strong>First Name:</strong> <span id="viewFirstName">Kartik</span></div>
+
+          <div><strong>Last Name:</strong> <span id="viewLastName"></span></div>
+
+          <div><strong>Date of Birth:</strong> <span id="viewDob"></span></div>
+
+          <div><strong>Email:</strong> <span id="viewEmail">kartik@example.com</span></div>
+
+          <div><strong>Department:</strong> <span id="viewDept"></span></div>
+
+          <div><strong>Mobile:</strong> <span id="viewMobile"> </span></div>
+
+          <div><strong>City:</strong> <span id="viewCity"></span></div>
+
+          <div><strong>Country:</strong> <span id="viewCountry"></span></div>
+
+          <div class="col-span-2"><strong>Address:</strong> <span id="viewAddress"></span></div>
+        </div>
+
+        <button id="editBtn"
+          class="mt-4 bg-yellow-500 text-black px-6 py-2 rounded hover:bg-yellow-400 font-semibold">Edit
+        </button>
+
+
+      </div>
+
+
+
+
+     
+      <div id="profileEditForm" class="hidden mt-6">
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 bg-[#3d3d3d] p-6 rounded-xl">
+
+
+          <div><label class="block mb-1 text-sm">Employee Code</label><input type="text" id="empCode" value="EMP001"
+              disabled class="w-full p-2 rounded bg-[#2d2d2d] border border-[#555] text-white" /></div>
+
+          <div><label class="block mb-1 text-sm">Gender</label><input type="text" id="gender" value=""
+              class="w-full p-2 rounded bg-[#2d2d2d] border border-[#555] text-white" placeholder="Eg: Male"/></div>
+
+          <div><label class="block mb-1 text-sm">First Name</label><input type="text" id="firstName" value="Kartik"
+              class="w-full p-2 rounded bg-[#2d2d2d] border border-[#555] text-white" /></div>
+
+          <div><label class="block mb-1 text-sm">Last Name</label><input type="text" id="lastName" value=""
+              class="w-full p-2 rounded bg-[#2d2d2d] border border-[#555] text-white" placeholder="Eg: Mankar"/></div>
+              
+          <div><label class="block mb-1 text-sm">DOB</label><input type="text" id="dob" value=""
+              class="w-full p-2 rounded bg-[#2d2d2d] border border-[#555] text-white" placeholder="Eg: YYYY/MM/DD"/></div>
+
+          <div><label class="block mb-1 text-sm">Email</label><input type="email" id="email" value="kartik@example.com"
+              disabled class="w-full p-2 rounded bg-[#2d2d2d] border border-[#555] text-white" /></div>
+
+          <div><label class="block mb-1 text-sm">Department</label><input type="text" id="workingDept" value=""
+              class="w-full p-2 rounded bg-[#2d2d2d] border border-[#555] text-white" placeholder="Eg: HR/IT Department" /></div>
+
+          <div><label class="block mb-1 text-sm">Mobile</label><input type="text" id="mobile" value=""
+              class="w-full p-2 rounded bg-[#2d2d2d] border border-[#555] text-white" placeholder="+91 8930465997" /></div>
+
+          <div><label class="block mb-1 text-sm">City</label><input type="text" id="city" value=""
+              class="w-full p-2 rounded bg-[#2d2d2d] border border-[#555] text-white" placeholder="Eg: Nagpur"/></div>
+
+          <div><label class="block mb-1 text-sm">Country</label><input type="text" id="country" value=""
+              class="w-full p-2 rounded bg-[#2d2d2d] border border-[#555] text-white" placeholder="Eg: India" /></div>
+
+          <div class="md:col-span-2"><label class="block mb-1 text-sm">Address</label><input type="text" id="address"
+              value="" class="w-full p-2 rounded bg-[#2d2d2d] border border-[#555] text-white" placeholder="Eg: Near sive mandir,nagpur"/></div>
+
+          <div class="mt-6 flex gap-4 col-span-2">
+            <button id="saveBtn"
+              class="bg-green-500 text-white px-6 py-2 rounded hover:bg-green-600 font-semibold">Save</button>
+            <button id="cancelBtn"
+              class="bg-gray-500 text-white px-6 py-2 rounded hover:bg-gray-600 font-semibold">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+    <!-- Change Password  -->
+
+    <div id="changePasswordSection" class="p-10 hidden">
+      <h2 class="text-3xl font-bold mb-6 text-[#ffbd20]">Change Password</h2>
+
+      <div class="w-full bg-[#3d3d3d] p-6 rounded-xl space-y-6">
+
+        <div class="flex gap-2">
+
+          <div class="w-full">
+            <label class="block mb-1 text-sm font-semibold">Old Password</label>
+            <div class="relative w-full">
+              <i class="fa fa-lock absolute left-3 top-1/2 transform -translate-y-1/2 text-white pointer-events-none"></i>
+              <input id="oldPassword" type="password" placeholder="Old Password"
+                class="w-full p-4 pl-10 pr-10 border placeholder-white border-[#555] rounded-xl bg-[#2d2d2d] text-white
+                 hover:border-white focus:border-[#ffbd20] focus:border-2 focus:outline-none transition-colors duration-200" />
+
+                
+              <button type="button" onclick="togglePassword('oldPassword', this)"
+                class="absolute right-3 top-1/2 transform -translate-y-1/2 text-white focus:outline-none">
+                <i class="fa fa-eye"></i>
+              </button>
+
+            </div>
+          </div>
+
+
+
+     
+          <div class="w-full">
+            <label class="block mb-1 text-sm font-semibold">New Password</label>
+            <div class="relative w-full">
+              <i class="fa fa-lock absolute left-3 top-1/2 transform -translate-y-1/2 text-white pointer-events-none"></i>
+              <input id="newPassword" type="password" placeholder="New Password"
+                class="w-full p-4 pl-10 pr-10 border placeholder-white border-[#555] rounded-xl bg-[#2d2d2d] text-white
+                 hover:border-white focus:border-[#ffbd20] focus:border-2 focus:outline-none transition-colors duration-200" />
+              <button type="button" onclick="togglePassword('newPassword', this)"
+                class="absolute right-3 top-1/2 transform -translate-y-1/2 text-white focus:outline-none">
+                <i class="fa fa-eye"></i>
+              </button>
+            </div>
+          </div>
+
+
+        </div>
+
+
+      
+        <div class="w-full flex justify-center items-center">
+          <div class="w-1/2">
+            <label class="block mb-1 text-sm font-semibold">Confirm New Password</label>
+            <div class="relative w-full">
+              <i class="fa fa-lock absolute left-3 top-1/2 transform -translate-y-1/2 text-white pointer-events-none"></i>
+              <input id="confirmPassword" type="password" placeholder="Confirm Password"
+                class="w-full p-4 pl-10 pr-10 border placeholder-white border-[#555] rounded-xl bg-[#2d2d2d] text-white
+                 hover:border-white focus:border-[#ffbd20] focus:border-2 focus:outline-none transition-colors duration-200" />
+
+              <button type="button" onclick="togglePassword('confirmPassword', this)"
+                class="absolute right-3 top-1/2 transform -translate-y-1/2 text-white focus:outline-none">
+                <i class="fa fa-eye"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+       
+        <button onclick="changePassword()"
+          class="bg-yellow-500 hover:bg-yellow-400 text-black font-semibold px-6 py-2 rounded mt-4">
+          Change Password
+        </button>
+      </div>
+    </div>
+
+
+
+
+    <!-- Apply Leave Section -->
+    <div id="applyLeaveSection" class="p-10 hidden ">
+      <h2 class="text-3xl font-bold mb-6 text-[#ffbd20]">Apply for Leave</h2>
+
+      <div class="flex items-center justify-center ">
+
+        <div class="w-[100%] bg-[#3d3d3d] p-6 rounded-xl space-y-6 ">
+          
+          <div>
+            <label class="block mb-1 text-sm font-semibold">Leave Type</label>
+            <select id="leaveType" class="w-full p-2 rounded bg-[#2d2d2d] border border-[#555] text-white">
+              <option value="Sick Leaves">Sick Leaves</option>
+              <option value="Vacation Leaves">Vacation Leaves</option>
+              <option value="Other Leaves">Other Leaves</option>
+            </select>
+          </div>
+
+          
+          <div>
+            <label class="block mb-1 text-sm font-semibold">Start Date</label>
+            <input type="date" id="startDate" class="w-full p-2 rounded bg-[#2d2d2d] border border-[#555] text-white" />
+          </div>
+
+          
+          <div>
+            <label class="block mb-1 text-sm font-semibold">End Date</label>
+            <input type="date" id="endDate" class="w-full p-2 rounded bg-[#2d2d2d] border border-[#555] text-white" />
+          </div>
+
+          
+          <div>
+            <label class="block mb-1 text-sm font-semibold">Reason</label>
+            <textarea id="reason" rows="3"
+              class="w-full p-2 rounded bg-[#2d2d2d] border border-[#555] text-white"></textarea>
+          </div>
+
+          <button onclick="submitLeaveRequest()"
+            class="bg-yellow-500 hover:bg-yellow-400 text-black px-6 py-2 rounded font-semibold w-full">
+            Submit Leave Request
+          </button>
+        </div>
+      </div>
+
+
+
+
+
+    </div>
+
+    <!-- Calendar Section -->
+    <section id="calendarSection" class="p-6 hidden ">
+      <h2 class="text-xl font-bold mb-4">Leave Calendar</h2>
+      <div id="leaveCalendar"></div>
+    </section>
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+
+
+</body>
+
+</html>
