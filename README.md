@@ -183,4 +183,41 @@ Open using browser or Live Server extension.
 - Approve or Reject leave with optional comment
 - Check summaries per employee
 
+### 📸 Screenshots
+
+1) Register Page
+
+<img width="1919" height="914" alt="image" src="https://github.com/user-attachments/assets/3ad338c8-5e78-4829-9a89-1bf87db49793" />
+
+2) Login page
+   
+<img width="1919" height="912" alt="image" src="https://github.com/user-attachments/assets/13407a49-dd54-4b96-a1ed-9847e3cb1153" />
+
+
+1) Employee Dashboard
+    1) Employee Dashboard
+
+  <img width="1919" height="915" alt="image" src="https://github.com/user-attachments/assets/f9343d7c-b0ef-417d-a2ed-34425e93a20a" />
+
+  2)Employee Profile
+
+  <img width="1915" height="909" alt="image" src="https://github.com/user-attachments/assets/015c8a15-b164-49ed-a852-31486f65910e" />
+
+  3) Change Password
+  <img width="1919" height="903" alt="image" src="https://github.com/user-attachments/assets/5ebb099a-9230-4eea-a331-80ec498bb966" />
+
+  4) Apply Leave
+  <img width="1919" height="906" alt="image" src="https://github.com/user-attachments/assets/81689109-b879-46ee-ad19-4ce7627533e3" />
+
+  5) Leave Calender
+  <img width="1919" height="914" alt="image" src="https://github.com/user-attachments/assets/4c49fbbe-3b88-4e4d-bb0f-ad08ea23bca0" />
+  
+  6) Logout
+     
+2) Manager Dashbord
+
+ 
+
+
+
 
