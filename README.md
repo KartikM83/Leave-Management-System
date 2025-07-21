@@ -200,7 +200,7 @@ Open using browser or Live Server extension.
 
   <img width="1919" height="915" alt="image" src="https://github.com/user-attachments/assets/f9343d7c-b0ef-417d-a2ed-34425e93a20a" />
 
-  2)Employee Profile
+  2) Employee Profile
 
   <img width="1915" height="909" alt="image" src="https://github.com/user-attachments/assets/015c8a15-b164-49ed-a852-31486f65910e" />
 
@@ -216,6 +216,22 @@ Open using browser or Live Server extension.
   6) Logout
      
 ### 2) Manager Dashbord
+
+1) Manager Dashboard
+   <img width="1916" height="907" alt="image" src="https://github.com/user-attachments/assets/33b1e15b-190e-47c5-aa0d-20c42de424e3" />
+
+2) Manager Profile
+ <img width="1916" height="911" alt="image" src="https://github.com/user-attachments/assets/99dd0acf-7951-4a76-8b61-2c1e4f96c188" />
+  
+3) Change Password
+   <img width="1917" height="908" alt="image" src="https://github.com/user-attachments/assets/6d937578-788d-4d5c-8cc5-08a9d79040ce" />
+
+4) New Leaves
+   <img width="1919" height="902" alt="image" src="https://github.com/user-attachments/assets/d0c99372-ac46-4501-b8a0-0d0390c396ed" />
+
+   <img width="1918" height="906" alt="image" src="https://github.com/user-attachments/assets/31eb811e-4e83-4da1-a6e9-e9c9de6ba304" />
+
+5) Logout
 
  
 
