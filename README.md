@@ -1,198 +1,186 @@
-Leave Management System
+# 🏢 Leave Management System
 
-A full-stack application to manage employee leave requests and approvals with role-based access for Employees and Managers.
+A full-stack web application to manage employee leave requests and approvals, built using **Spring Boot**, **MySQL**, **HTML**, **TailwindCSS**, and **JavaScript**. The system provides role-based access for **Employees** and **Managers** with leave tracking and summaries.
 
-Table of Contents
+---
 
-Features
+## 📚 Table of Contents
 
-Tech Stack
+- [🔑 Features](#-features)
+- [🛠 Tech Stack](#-tech-stack)
+- [⚙️ Prerequisites](#️-prerequisites)
+- [🚀 Installation](#-installation)
+- [🧾 Configuration](#-configuration)
+- [▶️ Running the App](#️-running-the-app)
+- [📡 API Endpoints](#-api-endpoints)
+- [🗄 Database Schema](#-database-schema)
+- [👨‍💼 Usage Flow](#-usage-flow)
+- [🤝 Contributing](#-contributing)
+- [📄 License](#-license)
 
-Prerequisites
+---
 
-Installation
+## 🔑 Features
 
-Configuration
+- Employee registration and login
+- Manager registration and login
+- Leave request creation by employees
+- Leave approval/rejection by managers
+- Role-based access control
+- Leave balance tracking (sick, vacation, other)
+- Leave summary reports per employee
 
-Running the Application
+---
 
-API Endpoints
+## 🛠 Tech Stack
 
-Database Schema
+**Frontend:**
+- HTML
+- Tailwind CSS
+- JavaScript
 
-Usage
+**Backend:**
+- Java 17+
+- Spring Boot
+- Spring Data JPA
+- Hibernate
 
-Contributing
+**Database:**
+- MySQL
 
-License
+**Tools:**
+- Postman (API testing)
+- Git & GitHub
 
-Features
+---
 
-Employee can submit leave requests with type, date range, and reason.
+## ⚙️ Prerequisites
 
-Manager can view, approve, or reject leave requests.
+Ensure the following are installed:
 
-Role-based access control for Employees and Managers.
+- Java 17 or above
+- Maven 3.6+
+- MySQL 5.7+
+- Node.js (optional, for frontend tools like `live-server`)
 
-Real-time leave balance calculation (sick, vacation, other).
+---
 
-Summary endpoint for total, approved, rejected, and pending counts.
+## 🚀 Installation
 
-Tech Stack
+### 1. Clone the Repository
 
-Backend: Java, Spring Boot, Spring Data JPA, Hibernate
-
-Database: MySQL
-
-Frontend: HTML, TailwindCSS, JavaScript
-
-API Testing: Postman
-
-Prerequisites
-
-Java 17 or higher
-
-Maven 3.6+
-
-MySQL 5.7+ or compatible
-
-Node.js (optional, for serving static files)
-
-Installation
-
-Clone the repository:
-
+```bash
 git clone https://github.com/yourusername/leave-management-system.git
-cd leave-management-system/backend
+cd leave-management-system
+```
+### 2: Setup MySQL
+- Create a database named: leave_management
+- Open src/main/resources/schema.sql and data.sql (if any) to manually create required tables and dummy data.
 
-Build the Spring Boot backend with Maven:
-
-mvn clean install
-
-Set up the database:
-
-Create a new MySQL schema, for example leave_management.
-
-Run SQL scripts in src/main/resources/schema.sql and data.sql to create tables and seed data.
-
-Configuration
-
-Open src/main/resources/application.properties and configure your database connection:
-
+### Step 3: Configure Spring Boot
+Update src/main/resources/application.properties:
+```
 spring.datasource.url=jdbc:mysql://localhost:3306/leave_management
 spring.datasource.username=root
 spring.datasource.password=your_password
+
 spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true
+spring.jpa.properties.hibernate.format_sql=true
+```
 
-Running the Application
-
-Start the Spring Boot server:
-
+### ▶️ Running the App
+✅ Backend (Spring Boot)
+```
+cd backend
+mvn clean install
 mvn spring-boot:run
+```
 
-Serve the frontend (optional):
+App will start on: http://localhost:8080
 
-If you have a simple HTTP server (like live-server), point it to frontend/ directory.
+🌐 Frontend (HTML + Tailwind)
+Open the frontend folder and open files like:
 
-Or open frontend/register.html and other HTML files directly in your browser.
+- register.html
+-login.html
+-dashboard.html
+-leave_request.html
 
-The backend will run on http://localhost:8080/ by default.
+Open using browser or Live Server extension.
 
-API Endpoints
 
-Method
+# Leave Management System
 
-Endpoint
+## 📡 API Endpoints
 
-Description
+| Method | Endpoint                  | Description                           |
+|--------|---------------------------|-------------------------------------|
+| POST   | `/users/register`          | Register new Employee/Manager       |
+| POST   | `/users/login`             | Login using empCode                  |
+| POST   | `/leave`                   | Submit leave request                 |
+| GET    | `/leave/user/{userId}`     | View all leave requests by user     |
+| PUT    | `/leave/{leaveId}/status` | Manager approves/rejects a request  |
+| GET    | `/leave/summary/{userId}`  | View leave balances and summary     |
 
-Request Body
+---
 
-Response
+## 🗄 Database Schema
 
-POST
+### User Table
 
-/users/register
+| Field      | Type   |
+|------------|--------|
+| id         | Long   |
+| emp_code   | String |
+| name       | String |
+| last_name  | String |
+| email      | String |
+| password   | String |
+| role       | String (EMPLOYEE / MANAGER) |
 
-Register a new user (Employee/Manager)
+### LeaveBalance Table
 
-{ name, lastName, email, password, role }
+| Field                   | Type  |
+|-------------------------|-------|
+| id                      | Long  |
+| employee_id             | Long  |
+| total_sick_leaves       | int   |
+| total_vacation_leaves   | int   |
+| total_other_leaves      | int   |
+| remaining_sick_leaves   | int   |
+| remaining_vacation_leaves | int |
+| other_leaves_remaining  | int   |
 
-UserDTO
+### LeaveRequest Table
 
-POST
+| Field           | Type                         |
+|-----------------|------------------------------|
+| id              | Long                         |
+| employee_id     | Long                         |
+| leave_type      | String                       |
+| start_date      | Date                         |
+| end_date        | Date                         |
+| reason          | String                       |
+| status          | String (PENDING/APPROVED/REJECTED) |
+| manager_comment | String                       |
 
-/users/login
+---
 
-Login and obtain user details
+## 👨‍💼 Usage Flow
 
-{ email, password }
+### 👤 Employee
 
-UserDTO
+- Register or Login using empCode
+- Apply for leave by filling the form
+- View leave request history
+- Check leave summary and balances
 
-POST
+### 🧑‍💼 Manager
 
-/leave
+- Register or Login using empCode
+- View all employee leave requests
+- Approve or Reject leave with optional comment
+- Check summaries per employee
 
-Submit a new leave request
-
-LeaveRequestDTO
-
-LeaveRequestDTO
-
-GET
-
-/leave/user/{userId}
-
-Get all leave requests of a user
-
-—
-
-List<LeaveRequestDTO>
-
-PUT
-
-/leave/{leaveId}/status
-
-Update leave status (approve/reject)
-
-{ status, managerComment }
-
-LeaveRequestDTO
-
-GET
-
-/leave/summary/{userId}
-
-Get leave balance and summary counts
-
-—
-
-LeaveSummaryDTO
-
-Database Schema
-
-User: id, name, last_name, email, password, role, emp_code, ...
-
-LeaveBalance: id, employee_id, total_sick_leaves, total_vacation_leaves, total_other_leaves, remaining_sick_leaves, remaining_vacation_leaves, other_leaves_remaining
-
-LeaveRequest: id, employee_id, leave_type, start_date, end_date, reason, status, manager_comment
-
-Usage
-
-Register as an Employee or Manager.
-
-Employees can log in and submit leave requests.
-
-Managers can log in to view all requests and update their statuses.
-
-Employees can view their leave summary at any time.
-
-Contributing
-
-Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
-
-License
-
-MIT
 
