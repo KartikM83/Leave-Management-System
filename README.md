@@ -194,8 +194,9 @@ Open using browser or Live Server extension.
 <img width="1919" height="912" alt="image" src="https://github.com/user-attachments/assets/13407a49-dd54-4b96-a1ed-9847e3cb1153" />
 
 
-1) Employee Dashboard
-    1) Employee Dashboard
+### 1) Employee Dashboard
+   
+   1) Employee Dashboard
 
   <img width="1919" height="915" alt="image" src="https://github.com/user-attachments/assets/f9343d7c-b0ef-417d-a2ed-34425e93a20a" />
 
@@ -214,7 +215,7 @@ Open using browser or Live Server extension.
   
   6) Logout
      
-2) Manager Dashbord
+### 2) Manager Dashbord
 
  
 
