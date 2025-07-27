@@ -23,7 +23,9 @@ public class LeaveRequest {
     @JoinColumn(name = "employee_id")
     private User employee;
 
+    @Enumerated(EnumType.STRING)
     private LeaveType leaveType;
+    
     private LocalDate startDate;
     private LocalDate endDate;
     private String reason;
