@@ -31,12 +31,35 @@ public class LeaveRequestServiceImp implements LeaveRequestService {
     @Override
     public LeaveRequestDTO submitLeave(LeaveRequestDTO leaveRequestDTO) throws UserException {
 
-        User user = userRepo.findById(leaveRequestDTO.getEmployeeID()).orElseThrow(()->new UserException("Employee not found"));
+        User user = userRepo.findById(leaveRequestDTO.getEmployeeID())
+                .orElseThrow(() -> new UserException("Employee not found"));
 
 
-        LeaveRequest request =LeaveRequest.builder()
+        int days = (int) (leaveRequestDTO.getEndDate().toEpochDay() - leaveRequestDTO.getStartDate().toEpochDay()) + 1;
+        if (days <= 0) {
+            throw new UserException("End date must be after or same as start date");
+        }
+
+
+        LeaveBalance balance = balanceRepo.findByEmployeeId(user.getId())
+                .orElseThrow(() -> new UserException("Leave balance not found"));
+
+
+        LeaveType type = leaveRequestDTO.getLeaveType();
+        int remainingDays = switch (type) {
+            case SICK -> balance.getRemainingSickLeaves();
+            case VACATION -> balance.getRemainingVacationLeaves();
+            case OTHER -> balance.getOtherLeavesRemaining();
+        };
+
+        if (days > remainingDays) {
+            throw new UserException("Insufficient " + type + " leaves. Only " + remainingDays + " days left.");
+        }
+
+
+        LeaveRequest request = LeaveRequest.builder()
                 .employee(user)
-                .leaveType(leaveRequestDTO.getLeaveType())
+                .leaveType(type)
                 .startDate(leaveRequestDTO.getStartDate())
                 .endDate(leaveRequestDTO.getEndDate())
                 .reason(leaveRequestDTO.getReason())
@@ -44,23 +67,21 @@ public class LeaveRequestServiceImp implements LeaveRequestService {
                 .managerComment(leaveRequestDTO.getManagerComment())
                 .build();
 
-        request=leaveRepo.save(request);
+        request = leaveRepo.save(request);
+
+
         return LeaveRequestDTO.builder()
                 .id(request.getId())
-                .employeeID(request.getEmployee().getId())
-                .leaveType(request.getLeaveType())
+                .employeeID(user.getId())
+                .leaveType(type)
                 .startDate(request.getStartDate())
                 .endDate(request.getEndDate())
                 .reason(request.getReason())
                 .status(request.getStatus())
                 .managerComment(request.getManagerComment())
                 .build();
-
-
-
-
-
     }
+
 
     @Override
     public List<LeaveRequestDTO> getLeavesByUserId(Long userId) throws UserException {
@@ -134,7 +155,7 @@ public class LeaveRequestServiceImp implements LeaveRequestService {
         return leaveRepo.countAllPendingLeaves();
     }
 
-    // LeaveRequestServiceImpl.java
+
     @Override
     public int countAllLeaveRequests() {
         return leaveRepo.countAllLeaveRequests();
@@ -171,15 +192,16 @@ public class LeaveRequestServiceImp implements LeaveRequestService {
         LeaveBalance balance = balanceRepo.findByEmployeeId(userId)
                 .orElseThrow(() -> new UserException("Leave balance not found"));
 
-        int sickApproved = leaveRepo.countApprovedLeavesByType(userId, LeaveType.SICK);
-        int vacationApproved = leaveRepo.countApprovedLeavesByType(userId,  LeaveType.VACATION);
-        int otherApproved = leaveRepo.countApprovedLeavesByType(userId, LeaveType.OTHER);
+        int sickApproved = leaveRepo.countApprovedLeaveDaysByType(userId, LeaveType.SICK);
+        int vacationApproved = leaveRepo.countApprovedLeaveDaysByType(userId,  LeaveType.VACATION);
+        int otherApproved = leaveRepo.countApprovedLeaveDaysByType(userId, LeaveType.OTHER);
+
 
         int totalApproved = sickApproved + vacationApproved + otherApproved;
         int totalAllotted = balance.getTotalSickLeaves() + balance.getTotalVacationLeaves() + balance.getTotalOtherLeaves();
         int totalRemaining = totalAllotted - totalApproved;
 
-        // 🔸 New: Status-wise counts
+
         int approvedCount = leaveRepo.countByEmployeeIdAndStatus(userId, LeaveStatus.APPROVED);
         int rejectedCount = leaveRepo.countByEmployeeIdAndStatus(userId, LeaveStatus.REJECTED);
         int pendingCount = leaveRepo.countByEmployeeIdAndStatus(userId, LeaveStatus.PENDING);

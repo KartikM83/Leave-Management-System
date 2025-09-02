@@ -46,12 +46,12 @@ public class ExceptionControllerAdvice {
     }
 
 
-    @ExceptionHandler(UserException.class)
-    public ResponseEntity<ErrorInfo> generalException(UserException exception){
-        String msg=environment.getProperty(exception.getMessage());
-        ErrorInfo errorInfo = new ErrorInfo(msg, HttpStatus.INTERNAL_SERVER_ERROR.value(), LocalDateTime.now());
-        return new ResponseEntity<>(errorInfo, HttpStatus.INTERNAL_SERVER_ERROR);
-    }
+//    @ExceptionHandler(UserException.class)
+//    public ResponseEntity<ErrorInfo> generalException(UserException exception){
+//        String msg=environment.getProperty(exception.getMessage());
+//        ErrorInfo errorInfo = new ErrorInfo(msg, HttpStatus.INTERNAL_SERVER_ERROR.value(), LocalDateTime.now());
+//        return new ResponseEntity<>(errorInfo, HttpStatus.INTERNAL_SERVER_ERROR);
+//    }
 
 
 }

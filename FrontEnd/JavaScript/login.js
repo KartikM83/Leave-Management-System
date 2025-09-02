@@ -5,6 +5,8 @@
   const input = document.getElementById(inputId);
   const icon = button.querySelector("i");
 
+ 
+
   if (input.type === "password") {
     input.type = "text";
     icon.classList.remove("fa-eye");
@@ -17,6 +19,11 @@
 }
 
 
+
+
+
+
+
 // login for submition
 
 document.getElementById("loginForm").addEventListener("submit", async (e) => {
@@ -24,6 +31,12 @@ document.getElementById("loginForm").addEventListener("submit", async (e) => {
 
   const email = document.getElementById("email").value.trim();
   const password = document.getElementById("password").value.trim();
+  const confirmpass = document.getElementById("password1").value.trim();
+  if(password!==confirmpass){
+  alert("Password Not match");
+  return
+}
+
 
   const fields = {
     email,

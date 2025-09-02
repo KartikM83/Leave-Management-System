@@ -26,8 +26,14 @@ public class UserDTO {
     private String email;
 
     @NotBlank(message = "{user.password.absent}")
-    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@#$^&+=!]).{8,15}$",message = "{user.password.invalid}")
+    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d{2,})(?=.*[@#$^&+=!]).{8,15}$",message = "{user.password.invalid}")
     private String password;
+
+//    @NotBlank(message = "Confirm password is required")
+    private String confirmPassword;
+
+
+
     private Role role;
 
 

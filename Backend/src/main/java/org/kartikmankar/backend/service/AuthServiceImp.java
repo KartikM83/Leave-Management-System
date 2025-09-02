@@ -37,13 +37,13 @@ public class AuthServiceImp implements AuthService{
 
         String nextEmpCode = "";
         if (userDTO.getRole().name().equals("EMPLOYEE")) {
-            String lastEmp = userRepo.findLastEmployeeCode();  // e.g., "EMP005"
+            String lastEmp = userRepo.findLastEmployeeCode();  //
             int nextNum = (lastEmp != null && lastEmp.length() >= 6)
                     ? Integer.parseInt(lastEmp.substring(3)) + 1
                     : 1;
             nextEmpCode = String.format("EMP%03d", nextNum);
         } else if (userDTO.getRole().name().equals("MANAGER")) {
-            String lastManager = userRepo.findLastManagerCode();  // e.g., "M002"
+            String lastManager = userRepo.findLastManagerCode();  //
             int nextNum = (lastManager != null && lastManager.length() >= 4)
                     ? Integer.parseInt(lastManager.substring(1)) + 1
                     : 1;
@@ -62,7 +62,8 @@ public class AuthServiceImp implements AuthService{
 
 
 
-        // Initialize leave balance for EMPLOYEES
+
+
         if (user.getRole().name().equals("EMPLOYEE")) {
             leaveBalanceService.initializeLeaveBalance(user.getId());
         }

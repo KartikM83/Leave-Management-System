@@ -19,6 +19,7 @@ public class LeaveRequestController {
     @Autowired
     private LeaveRequestService leaveRequestService;
 
+
     @PostMapping("/apply")
     public ResponseEntity<LeaveRequestDTO> applyLeave(@RequestBody @Valid LeaveRequestDTO leaveRequestDTO)
             throws UserException {
@@ -56,7 +57,7 @@ public class LeaveRequestController {
         return ResponseEntity.ok(count);
     }
 
-    // LeaveRequestController.java
+
     @GetMapping("/manager/total-count")
     public ResponseEntity<Integer> getAllLeaveRequestsCount() {
         int count = leaveRequestService.countAllLeaveRequests();

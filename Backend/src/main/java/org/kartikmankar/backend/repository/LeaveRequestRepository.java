@@ -39,4 +39,15 @@
 
 
 
+        @Query("SELECT COALESCE(SUM(DATEDIFF(l.endDate, l.startDate) + 1), 0) " +
+                "FROM LeaveRequest l " +
+                "WHERE l.employee.id = :userId AND l.leaveType = :leaveType " +
+                "AND l.status IN ('PENDING', 'APPROVED')")
+        int countTotalLeaveDaysByTypeAndStatus(@Param("userId") Long userId, @Param("leaveType") LeaveType leaveType);
+
+
+
+        @Query("SELECT COALESCE(SUM(DATEDIFF(l.endDate, l.startDate) + 1), 0) FROM LeaveRequest l " +
+                "WHERE l.employee.id = :userId AND l.leaveType = :type AND l.status = 'APPROVED'")
+        int countApprovedLeaveDaysByType(Long userId, LeaveType type);
     }

@@ -28,7 +28,7 @@ function changePassword() {
   })
     .then(res => {
       if (!res.ok) throw new Error("Password update failed");
-      return res.text(); // since backend returns a plain message
+      return res.text(); 
     })
     .then(msg => {
       alert(msg);

@@ -38,7 +38,7 @@
 
 
                 <label>Password</label>
-                <div class="relative w-full mb-4">
+                <div class="relative w-full mb-4"  >
                     <i class="fa fa-lock absolute left-3 top-1/2 transform -translate-y-1/2 text-white pointer-events-none"></i>
                     <input id="password" type="password" placeholder="Password" class="w-full p-4 pl-10 pr-10 border placeholder-white border-black rounded-xl bg-transparent text-white
                                 hover:border-white 
@@ -47,11 +47,32 @@
                                 focus:outline-none 
                                 transition-colors duration-200" required />
                                 
-                    <button type="button" onclick="togglePassword('password', this)"
+                    <button type="button" id="pass" onclick="togglePassword('password', this)"
                         class="absolute right-3 top-1/2 transform -translate-y-1/2 text-white focus:outline-none">
                         <i class="fa fa-eye"></i>
+                         
                     </button>
                 </div>
+
+                 <label>Confirm Password</label>
+                <div class="relative w-full mb-4 " id="secondpass">
+                    <i class="fa fa-lock absolute left-3 top-1/2 transform -translate-y-1/2 text-white pointer-events-none"></i>
+                    <input id="password1" type="password1" placeholder="Password1" class="w-full p-4 pl-10 pr-10 border placeholder-white border-black rounded-xl bg-transparent text-white
+                                hover:border-white 
+                                focus:border-[#ffbd20] 
+                                focus:border-2  
+                                focus:outline-none 
+                                transition-colors duration-200" required />
+                                
+                    <button type="button" id="pass" onclick="togglePassword('password', this)"
+                        class="absolute right-3 top-1/2 transform -translate-y-1/2 text-white focus:outline-none">
+                        <i class="fa fa-eye"></i>
+                
+                    </button>
+                </div>
+
+
+                
 
                
                 

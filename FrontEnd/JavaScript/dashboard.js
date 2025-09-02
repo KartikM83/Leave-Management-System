@@ -9,12 +9,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
   loadLeaveSummary(userId);
   loadRecentLeaves(userId);
+  loadLeaveCalendar(userId); 
 });
 
 
 
 
-//Helper function for safe textContent assignment
 function setText(id, value) {
   const el = document.getElementById(id);
   if (el) el.textContent = value;
@@ -43,6 +43,8 @@ async function loadLeaveSummary(userId) {
     alert("Failed to load dashboard summary");
   }
 }
+
+
 
 async function loadRecentLeaves(userId) {
   try {
@@ -85,7 +87,11 @@ async function loadRecentLeaves(userId) {
 
 
 
-//Submit Leave Request
+
+
+
+
+
 async function submitLeaveRequest() {
   const user = JSON.parse(localStorage.getItem("user"));
   if (!user) {
@@ -98,6 +104,51 @@ async function submitLeaveRequest() {
   const endDate = document.getElementById("endDate")?.value;
   const reason = document.getElementById("reason")?.value;
 
+  if (!leaveType || !startDate || !endDate) {
+    alert("Please fill all required fields.");
+    return;
+  }
+
+  
+  const start = new Date(startDate);
+  const end = new Date(endDate);
+  const timeDiff = end.getTime() - start.getTime();
+  const leaveDays = Math.floor(timeDiff / (1000 * 60 * 60 * 24)) + 1;
+
+  if (leaveDays <= 0) {
+    alert("End date must be after or same as start date.");
+    return;
+  }
+
+  
+  let summary;
+  try {
+    const res = await fetch(`http://localhost:8080/user/${user.id}/summary`);
+    summary = await res.json();
+  } catch (err) {
+    console.error("Error fetching leave summary:", err);
+    alert("Failed to check leave balance.");
+    return;
+  }
+
+ 
+  let remaining = 0;
+if (leaveType === "SICK") {
+  remaining = summary.totalSick - (summary.approvedSick || 0) - (summary.pendingSick || 0);
+} else if (leaveType === "VACATION") {
+  remaining = summary.totalVacation - (summary.approvedVacation || 0) - (summary.pendingVacation || 0);
+} else if (leaveType === "OTHER") {
+  remaining = summary.totalOther - (summary.approvedOther || 0) - (summary.pendingOther || 0);
+}
+
+
+  
+  if (leaveDays > remaining) {
+    alert(`❌ You have only ${remaining} ${leaveType.toLowerCase()} leave days left. You requested ${leaveDays} days.`);
+    return;
+  }
+
+  
   const data = {
     employeeID: user.id,
     leaveType,
@@ -117,27 +168,24 @@ async function submitLeaveRequest() {
     });
 
     if (response.ok) {
-      alert("Leave request submitted successfully!");
-
-
-     
-      if (document.getElementById("startDate")) document.getElementById("startDate").value = "";
-      if (document.getElementById("endDate")) document.getElementById("endDate").value = "";
-      if (document.getElementById("reason")) document.getElementById("reason").value = "";
-
-      
+      alert("✅ Leave request submitted successfully!");
+      document.getElementById("startDate").value = "";
+      document.getElementById("endDate").value = "";
+      document.getElementById("reason").value = "";
       showSection("dashboardSection");
       loadLeaveSummary(user.id);
       loadRecentLeaves(user.id);
     } else {
-      const err = await response.json();
-      alert("Error: " + err.errorMessage);
+      const errData = await response.json();
+      const errorMessage = errData.message || errData.errorMessage || "Leave request failed.";
+      alert("❌ Error: " + errorMessage);
     }
   } catch (e) {
     console.error("Submit error:", e);
-    alert("Server error. Try again later.");
+    alert("❌ Server error. Try again later.");
   }
 }
+
 
 
 
@@ -202,16 +250,16 @@ async function loadLeaveCalendar(userId) {
   }
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  const user = JSON.parse(localStorage.getItem("user"));
-  const userId = user?.id;
+// document.addEventListener("DOMContentLoaded", () => {
+//   const user = JSON.parse(localStorage.getItem("user"));
+//   const userId = user?.id;
 
-  if (!userId) {
-    alert("User not logged in");
-    return;
-  }
+//   if (!userId) {
+//     alert("User not logged in");
+//     return;
+//   }
 
-  loadLeaveSummary(userId);
-  loadRecentLeaves(userId);
-  loadLeaveCalendar(userId); 
-});
+//   loadLeaveSummary(userId);
+//   loadRecentLeaves(userId);
+//   loadLeaveCalendar(userId); 
+// });
